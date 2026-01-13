@@ -1,0 +1,8 @@
+/vendor/
+/components/
+/nbproject/private/
+/node_modules/
+/*.log
+.env
+.DS_Store
+Thumbs.db

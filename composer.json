@@ -1,0 +1,19 @@
+{
+    "name": "user/retrojuegos",
+    "description": "videogame shop",
+    "type": "project",
+    "require": {
+        "eftec/bladeone": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "user\\Retrojuegos\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Luis Miguel",
+            "email": "luismiguelb2222@gmail.com"
+        }
+    ]
+}
