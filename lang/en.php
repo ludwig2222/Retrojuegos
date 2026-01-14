@@ -144,6 +144,23 @@ return [
   'payment_method_label' => 'Payment Method',
   'new_password_label' => 'New Password',
   'confirm_password_label' => 'Confirm Password',
+    
+  // Fechas pedido
+  'month_1' => 'January',
+  'month_2' => 'February',
+  'month_3' => 'March',
+  'month_4' => 'April',
+  'month_5' => 'May',
+  'month_6' => 'June',
+  'month_7' => 'July',
+  'month_8' => 'August',
+  'month_9' => 'September',
+  'month_10' => 'October',
+  'month_11' => 'November',
+  'month_12' => 'December',
+
+  'formatted_date' => '%2$s %1$s, %3$s',
+    
 
   // Método de pago
   'card_ending_in' => 'ending in %s',  
@@ -479,6 +496,13 @@ return [
   'no_reviews_found'       => 'No reviews found',
   'update_user_button'     => 'Update User',
   'cancel_button_form'     => 'Cancel',
+  'order_deleted_success'  => 'Order deleted successfully.',
+  'user_deleted_confirm'   => 'Are you sure you want to delete this user? This action cannot be undone.',
+  'phone_number_label'     => 'Phone number',
+  'user_type_label'        => 'User type',
+  'role_admin'             => 'Admin',
+  'role_webmaster'         => 'Webmaster',
+  'role_customer'          => 'Customer',
     
     
   // Gestión Contraseñas

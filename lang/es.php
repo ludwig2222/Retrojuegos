@@ -140,6 +140,23 @@ return [
   'order_total_price' => 'Precio total:',
   'view_details' => 'Ver detalles',
 
+  // Fechas pedido
+  'month_1' => 'enero',
+  'month_2' => 'febrero',
+  'month_3' => 'marzo',
+  'month_4' => 'abril',
+  'month_5' => 'mayo',
+  'month_6' => 'junio',
+  'month_7' => 'julio',
+  'month_8' => 'agosto',
+  'month_9' => 'septiembre',
+  'month_10' => 'octubre',
+  'month_11' => 'noviembre',
+  'month_12' => 'diciembre',
+
+  'formatted_date' => '%1$s de %2$s de %3$s',
+    
+    
   'address_label' => 'Dirección',
   'payment_method_label' => 'Método de pago',
   'new_password_label' => 'Nueva contraseña',
@@ -481,6 +498,13 @@ return [
   'no_reviews_found'       => 'No se encontraron reseñas',
   'update_user_button'     => 'Actualizar usuario',
   'cancel_button_form'     => 'Cancelar',
+  'order_deleted_success'  => 'Pedido eliminado correctamente.',
+  'user_deleted_confirm'   => '¿Seguro que deseas eliminar este usuario? Esta acción no se puede deshacer.',
+  'phone_number_label'     => 'Número de teléfono',
+  'user_type_label'        => 'Tipo de usuario',
+  'role_admin'             => 'Administrador',
+  'role_webmaster'         => 'Webmaster',
+  'role_customer'          => 'Cliente',
     
     
   // Gestión Contraseñas

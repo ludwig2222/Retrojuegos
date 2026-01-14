@@ -10,7 +10,21 @@ $conn = new mysqli('localhost', 'root', '', 'retrojuegos');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
     $user_id = intval($_POST['delete_user']);
     db_delete('users', "id = $user_id");
+    alert('success', __('user_deleted_success'));
+    
     header("Location: admin-user-management.php?deleted=1");
+    exit;
+}
+
+// Borrado de pedido
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
+    $order_id = intval($_POST['cancel_order']);
+    $user_id  = intval($_POST['user_id']); // nos quedamos en el usuario editado
+
+    db_delete('orders', "id = $order_id");
+    alert('success', __('order_deleted_success'));
+
+    header("Location: admin-user-management.php?edit=$user_id&order_deleted=1");
     exit;
 }
 
@@ -88,7 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
         'address' => $address,
         'user_type' => $user_type
     ], "id = $user_id");
-
+    alert('success', __('user_updated_success'));
+    
     header("Location: admin-user-management.php?updated=1");
     exit;
     }
@@ -165,14 +180,6 @@ require_once('header.php')
             <div class="alert alert-danger"><?= $username_error ?></div>
           <?php endif; ?>
 
-          <?php if (isset($_GET['updated'])): ?>
-            <div class="alert alert-success"><?= __('user_updated_success') ?></div>
-          <?php endif; ?>
-
-          <?php if (isset($_GET['deleted'])): ?>
-            <div class="alert alert-success"><?= __('user_deleted_success') ?></div>
-          <?php endif; ?>
-
          <?php if ($user_to_edit): ?>
             <div class="bg-black rounded-3 p-4 mb-4">
               <!-- Nav tabs -->
@@ -198,31 +205,52 @@ require_once('header.php')
               <div class="tab-content mt-3" id="userTabsContent">
                 <!-- Profile -->
                 <div class="tab-pane fade show active" id="profile" role="tabpanel">
-                  <form method="post">
-                    <input type="hidden" name="update_user" value="<?= $user_to_edit['id'] ?>">
-                    <div class="mb-3">
-                      <label class="form-label text-white"><?= __('first_name_label') ?></label>
-                      <input type="text" name="first_name" class="form-control" value="<?= htmlspecialchars($user_to_edit['first_name']) ?>">
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label text-white"><?= __('last_name_label') ?></label>
-                      <input type="text" name="last_name" class="form-control" value="<?= htmlspecialchars($user_to_edit['last_name']) ?>">
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label text-white"><?= __('username_label') ?></label>
-                      <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($user_to_edit['username']) ?>">
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label text-white"><?= __('email_label') ?></label>
-                      <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user_to_edit['email']) ?>">
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label text-white"><?= __('address_label') ?></label>
-                      <input type="text" name="address" class="form-control" value="<?= htmlspecialchars($user_to_edit['address']) ?>">
-                    </div>
-                    <button class="btn btn-primary" type="submit"><?= __('update_user_button') ?></button>
-                    <a href="admin-user-management.php" class="btn btn-secondary ms-2"><?= __('cancel_button') ?></a>
-                  </form>
+                    <form method="post">
+                      <input type="hidden" name="update_user" value="<?= $user_to_edit['id'] ?>">
+                      <input type="hidden" name="user_id" value="<?= $user_to_edit['id'] ?>">
+
+                      <div class="mb-3">
+                        <label class="form-label text-white"><?= __('first_name_label') ?></label>
+                        <input type="text" name="first_name" class="form-control" value="<?= htmlspecialchars($user_to_edit['first_name']) ?>">
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label text-white"><?= __('last_name_label') ?></label>
+                        <input type="text" name="last_name" class="form-control" value="<?= htmlspecialchars($user_to_edit['last_name']) ?>">
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label text-white"><?= __('username_label') ?></label>
+                        <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($user_to_edit['username']) ?>">
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label text-white"><?= __('email_label') ?></label>
+                        <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user_to_edit['email']) ?>">
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label text-white"><?= __('phone_number_label') ?></label>
+                        <input type="text" name="phone_number" class="form-control" value="<?= htmlspecialchars($user_to_edit['phone_number']) ?>">
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label text-white"><?= __('address_label') ?></label>
+                        <input type="text" name="address" class="form-control" value="<?= htmlspecialchars($user_to_edit['address']) ?>">
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label text-white"><?= __('user_type_label') ?></label>
+                        <select name="user_type" class="form-control">
+                          <option value="admin"     <?= $user_to_edit['user_type'] === 'admin' ? 'selected' : '' ?>><?= __('role_admin') ?></option>
+                          <option value="webmaster" <?= $user_to_edit['user_type'] === 'webmaster' ? 'selected' : '' ?>><?= __('role_webmaster') ?></option>
+                          <option value="customer"  <?= $user_to_edit['user_type'] === 'customer' ? 'selected' : '' ?>><?= __('role_customer') ?></option>
+                        </select>
+                      </div>
+
+                      <button class="btn btn-primary" type="submit"><?= __('update_user_button') ?></button>
+                      <a href="admin-user-management.php" class="btn btn-secondary ms-2"><?= __('cancel_button') ?></a>
+                    </form>
                 </div>
 
                 <!-- Orders -->

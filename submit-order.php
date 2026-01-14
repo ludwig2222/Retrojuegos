@@ -16,7 +16,7 @@ db_insert(
             'shipping' => json_encode($_SESSION['shipping']),
             'cart' => json_encode($_SESSION['cart']),
             'user' => json_encode($_SESSION['user']),
-            'order_date' => time(),
+            'order_date' => date('Y-m-d H:i:s'),
             'total_price' => $total,
         ]
 );

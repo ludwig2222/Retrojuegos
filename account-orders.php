@@ -90,16 +90,21 @@ require_once('header.php')
                 }
             }
   
-
             $dt = new DateTime($order['order_date']);
             $dt->setTimezone(new DateTimeZone('Europe/Madrid'));
+            
+            $day   = $dt->format('j');
+            $month = __('month_' . $dt->format('n'));
+            $year  = $dt->format('Y');
+
+            $order_date_label = sprintf(__('formatted_date'), $day, $month, $year);
           ?>
             <div class="card border-0 shadow-sm mb-4 order-card">
             <div class="card-body bg-black d-flex align-items-start">
               <img src="<?= $first_image ?>" alt="Product image" class="order-thumb me-3">
               <div class="order-details">
                 <h6 class="fs-sm mb-1 text-muted"><?= sprintf(__('order_number'), $order['id']) ?></h6>
-                <div class="text-muted small mb-2"><?= sprintf(__('order_date'), $dt->format('F j, Y')) ?></div>
+                <div class="text-muted small mb-2"><?= sprintf(__('order_date'), $order_date_label) ?></div>
 <!--                <p><?= __('order_status') ?> <strong><?= ucfirst(htmlspecialchars($order['order_status'])) ?></strong></p>-->
                 <p><?= __('order_total_items') ?> <strong><?= $total_items ?></strong></p>
                 <p class="price-accent"><?= __('order_total_price') ?> <strong><?= convert_price(number_format($order['total_price'], 2)) ?></strong></p>
